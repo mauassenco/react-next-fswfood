@@ -1,32 +1,41 @@
-/*
-  Warnings:
-
-  - You are about to drop the column `categorieId` on the `Product` table. All the data in the column will be lost.
-  - You are about to drop the column `discountPrice` on the `Product` table. All the data in the column will be lost.
-  - You are about to drop the column `deliveryTime` on the `Restaurant` table. All the data in the column will be lost.
-  - Added the required column `categoryId` to the `Product` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `deliveryTimeMinutes` to the `Restaurant` table without a default value. This is not possible if the table is not empty.
-
-*/
 -- CreateEnum
 CREATE TYPE "OrderStatus" AS ENUM ('CONFIRMED', 'CANCELED', 'PREPARING', 'DELIVERING', 'COMPLETED');
 
--- DropForeignKey
-ALTER TABLE "Product" DROP CONSTRAINT "Product_categorieId_fkey";
+-- CreateTable
+CREATE TABLE "Restaurant" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "imageUrl" TEXT NOT NULL,
+    "deliveryFee" DECIMAL(10,2) NOT NULL,
+    "deliveryTimeMinutes" INTEGER NOT NULL,
 
--- AlterTable
-ALTER TABLE "Category" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+    CONSTRAINT "Restaurant_pkey" PRIMARY KEY ("id")
+);
 
--- AlterTable
-ALTER TABLE "Product" DROP COLUMN "categorieId",
-DROP COLUMN "discountPrice",
-ADD COLUMN     "categoryId" TEXT NOT NULL,
-ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "discountPercentage" INTEGER NOT NULL DEFAULT 0;
+-- CreateTable
+CREATE TABLE "Category" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "imageUrl" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
--- AlterTable
-ALTER TABLE "Restaurant" DROP COLUMN "deliveryTime",
-ADD COLUMN     "deliveryTimeMinutes" INTEGER NOT NULL;
+    CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Product" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "imageUrl" TEXT NOT NULL,
+    "price" DECIMAL(10,2) NOT NULL,
+    "discountPercentage" INTEGER NOT NULL DEFAULT 0,
+    "restaurantId" TEXT NOT NULL,
+    "categoryId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "OrderProduct" (
@@ -100,6 +109,12 @@ CREATE TABLE "verificationtokens" (
     "expires" TIMESTAMP(3) NOT NULL
 );
 
+-- CreateTable
+CREATE TABLE "_CategoryToRestaurant" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "accounts_provider_provider_account_id_key" ON "accounts"("provider", "provider_account_id");
 
@@ -111,6 +126,15 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "verificationtokens_identifier_token_key" ON "verificationtokens"("identifier", "token");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_CategoryToRestaurant_AB_unique" ON "_CategoryToRestaurant"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_CategoryToRestaurant_B_index" ON "_CategoryToRestaurant"("B");
+
+-- AddForeignKey
+ALTER TABLE "Product" ADD CONSTRAINT "Product_restaurantId_fkey" FOREIGN KEY ("restaurantId") REFERENCES "Restaurant"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -132,3 +156,9 @@ ALTER TABLE "accounts" ADD CONSTRAINT "accounts_user_id_fkey" FOREIGN KEY ("user
 
 -- AddForeignKey
 ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_CategoryToRestaurant" ADD CONSTRAINT "_CategoryToRestaurant_A_fkey" FOREIGN KEY ("A") REFERENCES "Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_CategoryToRestaurant" ADD CONSTRAINT "_CategoryToRestaurant_B_fkey" FOREIGN KEY ("B") REFERENCES "Restaurant"("id") ON DELETE CASCADE ON UPDATE CASCADE;
