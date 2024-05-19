@@ -15,7 +15,8 @@ const Search = () => {
   };
 
   const handleSearchSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault;
+    e.preventDefault();
+
     if (!search) {
       return;
     }
