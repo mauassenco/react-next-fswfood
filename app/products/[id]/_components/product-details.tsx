@@ -26,6 +26,7 @@ import {
   calculateProductTotalPrice,
   formatCurrency,
 } from "@/app/_helpers/prices";
+import CartBanner from "@/app/restaurants/[id]/_components/cart-banner";
 import { Prisma } from "@prisma/client";
 
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
@@ -151,7 +152,7 @@ const ProductDetails = ({
           </div>
         )}
 
-        <div className="px-5">
+        <div className="px-5 pb-[90px]">
           <Button
             className="mt-6 w-full font-semibold"
             onClick={handleAddToCartClick}
@@ -192,6 +193,8 @@ const ProductDetails = ({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <CartBanner restaurant={product.restaurant} />
     </>
   );
 };
