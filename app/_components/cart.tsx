@@ -15,7 +15,7 @@ const Cart = () => {
       <div className="flex h-full flex-col py-5">
         {products.length > 0 ? (
           <>
-            <div className="space-y-4">
+            <div className="flex-auto space-y-4">
               {products.map((product) => (
                 <CartItem key={product.id} cartProduct={product} />
               ))}
@@ -41,7 +41,9 @@ const Cart = () => {
                     {Number(products[0].restaurant.deliveryFee) === 0 ? (
                       <span className="uppercase text-primary">Grátis</span>
                     ) : (
-                      formatCurrency(Number(products[0].restaurant.deliveryFee))
+                      formatCurrency(
+                        Number(products?.[0].restaurant.deliveryFee),
+                      )
                     )}
                   </div>
                   <Separator className="h-[0.5px] bg-[#EEEEEE]" />
@@ -53,7 +55,7 @@ const Cart = () => {
                         ? formatCurrency(totalPrice)
                         : formatCurrency(
                             totalPrice +
-                              Number(products[0].restaurant.deliveryFee),
+                              Number(products?.[0].restaurant.deliveryFee),
                           )}
                     </span>
                   </div>
