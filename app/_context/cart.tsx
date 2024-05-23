@@ -10,6 +10,8 @@ export interface CartProduct
       restaurant: {
         select: {
           deliveryFee: true;
+          id: true;
+          deliveryTimeMinutes: true;
         };
       };
     };
@@ -33,6 +35,8 @@ export interface ICartContext {
         restaurant: {
           select: {
             deliveryFee: true;
+            id: true;
+            deliveryTimeMinutes: true;
           };
         };
       };
@@ -43,6 +47,7 @@ export interface ICartContext {
   decreaseProductsQuantity: (productId: string) => void;
   increaseProductsQuantity: (productId: string) => void;
   removeProductFromCart: (productId: string) => void;
+  clearCart: () => void;
 }
 
 export const CartContext = createContext<ICartContext>({
@@ -55,6 +60,7 @@ export const CartContext = createContext<ICartContext>({
   decreaseProductsQuantity: () => {},
   increaseProductsQuantity: () => {},
   removeProductFromCart: () => {},
+  clearCart: () => {},
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
@@ -165,6 +171,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const clearCart = () => {
+    return setProducts([]);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -177,6 +187,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         totalDiscounts,
         totalPrice,
         totalQuantity,
+        clearCart,
       }}
     >
       {children}
