@@ -23,12 +23,10 @@ import {
 } from "@/app/_components/ui/sheet";
 import { CartContext } from "@/app/_context/cart";
 import {
-  calculateProductTotalPrice,
   formatCurrency,
-} from "@/app/_helpers/prices";
-import CartBanner from "@/app/restaurants/[id]/_components/cart-banner";
+  calculateProductTotalPrice,
+} from "@/app/_helpers/price";
 import { Prisma } from "@prisma/client";
-
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import { useContext, useState } from "react";
@@ -39,7 +37,7 @@ interface ProductDetailsProps {
       restaurant: true;
     };
   }>;
-  complemetaryProducts: Prisma.ProductGetPayload<{
+  complementaryProducts: Prisma.ProductGetPayload<{
     include: {
       restaurant: true;
     };
@@ -48,24 +46,27 @@ interface ProductDetailsProps {
 
 const ProductDetails = ({
   product,
-  complemetaryProducts,
+  complementaryProducts,
 }: ProductDetailsProps) => {
   const [quantity, setQuantity] = useState(1);
-  const { addProductToCart, products } = useContext(CartContext);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
     useState(false);
 
-  const addToCart = ({ emptyCart }: { emptyCart: boolean }) => {
-    addProductToCart({ product, quantity, emptyCart });
+  const { addProductToCart, products } = useContext(CartContext);
+
+  const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
+    addProductToCart({ product: { ...product, quantity }, emptyCart });
     setIsCartOpen(true);
   };
 
   const handleAddToCartClick = () => {
+    // VERIFICAR SE HÁ ALGUM PRODUTO DE OUTRO RESTAURANTE NO CARRINHO
     const hasDifferentRestaurantProduct = products.some(
       (cartProduct) => cartProduct.restaurantId !== product.restaurantId,
     );
 
+    // SE HOUVER, ABRIR UM AVISO
     if (hasDifferentRestaurantProduct) {
       return setIsConfirmationDialogOpen(true);
     }
@@ -75,9 +76,9 @@ const ProductDetails = ({
     });
   };
 
-  const handleIncreaseQuantity = () =>
+  const handleIncreaseQuantityClick = () =>
     setQuantity((currentState) => currentState + 1);
-  const handleDecreaseQuantity = () =>
+  const handleDecreaseQuantityClick = () =>
     setQuantity((currentState) => {
       if (currentState === 1) return 1;
 
@@ -87,22 +88,28 @@ const ProductDetails = ({
   return (
     <>
       <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5">
+        {/* RESTAURANTE */}
         <div className="flex items-center gap-[0.375rem] px-5">
           <div className="relative h-6 w-6">
             <Image
               src={product.restaurant.imageUrl}
               alt={product.restaurant.name}
-              className="rounded-full object-cover"
               fill
+              sizes="100%"
+              className="rounded-full object-cover"
             />
           </div>
-          <p className="text-xs text-muted-foreground">
+          <span className="text-xs text-muted-foreground">
             {product.restaurant.name}
-          </p>
+          </span>
         </div>
 
-        <h1 className="mb-3 mt-1 px-5 text-xl font-semibold">{product.name}</h1>
+        {/* NOME DO PRODUTO */}
+        <h1 className="mb-2 mt-1 px-5 text-xl font-semibold">{product.name}</h1>
+
+        {/* PREÇO DO PRODUTO E QUANTIDADE */}
         <div className="flex justify-between px-5">
+          {/* PREÇO COM DESCONTO */}
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-xl font-semibold">
@@ -113,6 +120,7 @@ const ProductDetails = ({
               )}
             </div>
 
+            {/* PREÇO ORIGINAL */}
             {product.discountPercentage > 0 && (
               <p className="text-sm text-muted-foreground">
                 De: {formatCurrency(Number(product.price))}
@@ -120,17 +128,18 @@ const ProductDetails = ({
             )}
           </div>
 
+          {/* QUANTIDADE */}
           <div className="flex items-center gap-3 text-center">
             <Button
               size="icon"
               variant="ghost"
               className="border border-solid border-muted-foreground"
-              onClick={handleDecreaseQuantity}
+              onClick={handleDecreaseQuantityClick}
             >
               <ChevronLeftIcon />
             </Button>
             <span className="w-4">{quantity}</span>
-            <Button size="icon" onClick={handleIncreaseQuantity}>
+            <Button size="icon" onClick={handleIncreaseQuantityClick}>
               <ChevronRightIcon />
             </Button>
           </div>
@@ -145,16 +154,14 @@ const ProductDetails = ({
           <p className="text-sm text-muted-foreground">{product.description}</p>
         </div>
 
-        {complemetaryProducts.length > 0 && (
-          <div className="mt-6 space-y-3">
-            <h3 className="px-5 font-semibold">Sucos</h3>
-            <ProductList products={complemetaryProducts} />
-          </div>
-        )}
+        <div className="mt-6 space-y-3">
+          <h3 className="px-5 font-semibold">Sucos</h3>
+          <ProductList products={complementaryProducts} />
+        </div>
 
-        <div className="px-5 pb-[90px]">
+        <div className="mt-6 px-5">
           <Button
-            className="mt-6 w-full font-semibold"
+            className="w-full font-semibold"
             onClick={handleAddToCartClick}
           >
             Adicionar à sacola
@@ -163,11 +170,12 @@ const ProductDetails = ({
       </div>
 
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
-        <SheetContent>
+        <SheetContent className="w-[90vw]">
           <SheetHeader>
             <SheetTitle className="text-left">Sacola</SheetTitle>
           </SheetHeader>
-          <Cart />
+
+          <Cart setIsOpen={setIsCartOpen} />
         </SheetContent>
       </Sheet>
 
@@ -193,8 +201,6 @@ const ProductDetails = ({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
-      <CartBanner restaurant={product.restaurant} />
     </>
   );
 };

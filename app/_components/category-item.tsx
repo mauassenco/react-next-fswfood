@@ -1,5 +1,4 @@
 import { Category } from "@prisma/client";
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,6 +18,7 @@ const CategoryItem = ({ category }: CategoryItemProps) => {
         height={30}
         width={30}
       />
+
       <span className="text-sm font-semibold">{category.name}</span>
     </Link>
   );

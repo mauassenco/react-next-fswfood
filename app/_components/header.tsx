@@ -11,7 +11,7 @@ import {
   ScrollTextIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { signIn, useSession, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import {
   Sheet,
   SheetContent,
@@ -19,11 +19,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { Separator } from "@radix-ui/react-separator";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Separator } from "./ui/separator";
 
 const Header = () => {
-  const { data, status } = useSession();
+  const { data } = useSession();
 
   const handleSignOutClick = () => signOut();
   const handleSignInClick = () => signIn();
@@ -43,7 +43,7 @@ const Header = () => {
       </Link>
 
       <Sheet>
-        <SheetTrigger>
+        <SheetTrigger asChild>
           <Button
             size="icon"
             variant="outline"
@@ -57,63 +57,59 @@ const Header = () => {
           <SheetHeader>
             <SheetTitle className="text-left">Menu</SheetTitle>
           </SheetHeader>
+
           {data?.user ? (
             <>
               <div className="flex justify-between pt-6">
                 <div className="flex items-center gap-3">
                   <Avatar>
                     <AvatarImage
-                      className="h-auto w-12 rounded-full object-cover"
-                      src={data?.user.image as string | undefined}
+                      src={data?.user?.image as string | undefined}
                     />
                     <AvatarFallback>
                       {data?.user?.name?.split(" ")[0][0]}
                       {data?.user?.name?.split(" ")[1][0]}
                     </AvatarFallback>
                   </Avatar>
+
                   <div>
                     <h3 className="font-semibold">{data?.user?.name}</h3>
-                    <p className="font-muted-foreground block text-xs">
+                    <span className="block text-xs text-muted-foreground">
                       {data?.user?.email}
-                    </p>
+                    </span>
                   </div>
                 </div>
-                <Button size="icon" onClick={handleSignOutClick}>
-                  <LogOutIcon size={20} />
-                </Button>
               </div>
             </>
           ) : (
             <>
               <div className="flex items-center justify-between pt-10">
                 <h2 className="font-semibold">Olá. Faça seu login!</h2>
-                <Button size="icon">
-                  <LogInIcon onClick={handleSignInClick} />
+                <Button size="icon" onClick={handleSignInClick}>
+                  <LogInIcon />
                 </Button>
               </div>
             </>
           )}
 
-          {data?.user && (
-            <>
-              <div className="py-6">
-                <Separator className="h-[.5px] bg-[#eeeeee]" />
-              </div>
+          <div className="py-6">
+            <Separator className="h-[0.5px] bg-[#EEEEEE]" />
+          </div>
 
-              <div className="space-y-2">
-                <Button
-                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal hover:bg-red-500 hover:text-white"
-                  variant="ghost"
-                >
-                  <HomeIcon size={16} />
-                  <span className="block">Início</span>
-                </Button>
-              </div>
+          <div className="space-y-2">
+            <Button
+              variant="ghost"
+              className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+            >
+              <HomeIcon size={16} />
+              <span className="block">Início</span>
+            </Button>
 
-              <div className="space-y-2">
+            {data?.user && (
+              <>
                 <Button
-                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal hover:bg-red-500 hover:text-white"
                   variant="ghost"
+                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
                   asChild
                 >
                   <Link href="/my-orders">
@@ -121,30 +117,34 @@ const Header = () => {
                     <span className="block">Meus Pedidos</span>
                   </Link>
                 </Button>
-              </div>
 
-              <div className="space-y-2">
                 <Button
-                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal hover:bg-red-500 hover:text-white"
                   variant="ghost"
+                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                  asChild
                 >
-                  <HeartIcon size={16} />
-                  <span className="block">Restaurantes Favoritos</span>
+                  <Link href="/my-favorite-restaurants">
+                    <HeartIcon size={16} />
+                    <span className="block">Restaurantes Favoritos</span>
+                  </Link>
                 </Button>
-              </div>
+              </>
+            )}
+          </div>
 
-              <div className="py-6">
-                <Separator className="h-[.5px] bg-[#eeeeee]" />
-              </div>
+          <div className="py-6">
+            <Separator className="h-[0.5px] bg-[#EEEEEE]" />
+          </div>
 
-              <Button
-                className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
-                variant="ghost"
-              >
-                <LogOutIcon onClick={handleSignOutClick} />
-                <span className="block">Sair da conta</span>
-              </Button>
-            </>
+          {data?.user && (
+            <Button
+              variant="ghost"
+              className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+              onClick={handleSignOutClick}
+            >
+              <LogOutIcon size={16} />
+              <span className="block">Sair da conta</span>
+            </Button>
           )}
         </SheetContent>
       </Sheet>

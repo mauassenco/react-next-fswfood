@@ -21,11 +21,12 @@ const ProductImage = ({ product }: ProductImageProps) => {
         src={product.imageUrl}
         alt={product.name}
         fill
+        sizes="100%"
         className="object-cover"
       />
 
       <Button
-        className="absolute left-4 top-4 rounded-full bg-white text-muted-foreground hover:text-white"
+        className="absolute left-4 top-4 rounded-full bg-white text-foreground hover:text-white"
         size="icon"
         onClick={handleBackClick}
       >
