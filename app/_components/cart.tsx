@@ -19,8 +19,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
+import { useRouter } from "next/navigation";
+
+// interface CartProps {
+//   // eslint-disable-next-line no-unused-vars
+//   setIsOpen: (isOpen: boolean) => void;
+// }
 
 const Cart = () => {
+  const router = useRouter();
   const { data } = useSession();
   const { products, subtotalPrice, totalDiscounts, totalPrice, clearCart } =
     useContext(CartContext);
@@ -46,8 +53,18 @@ const Cart = () => {
         user: {
           connect: { id: data.user.id },
         },
+        products: {
+          createMany: {
+            data: products.map((product) => ({
+              productId: product.id,
+              quantity: product.quantity,
+            })),
+          },
+        },
       });
+
       clearCart();
+      // setIsOpen(false);
     } catch (error) {
       console.log(error);
     } finally {

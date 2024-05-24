@@ -9,8 +9,8 @@ export interface CartProduct
     include: {
       restaurant: {
         select: {
-          deliveryFee: true;
           id: true;
+          deliveryFee: true;
           deliveryTimeMinutes: true;
         };
       };
