@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 
 const RecomendedRestaurants = async () => {
   const session = await getServerSession(authOptions);
-  const userFavoriteRestaurant = await db.userFavoriteRestaurant.findMany({
+  const userFavoriteRestaurants = await db.userFavoriteRestaurant.findMany({
     where: {
       userId: session?.user?.id,
     },
@@ -30,7 +30,7 @@ const RecomendedRestaurants = async () => {
             <RestaurantItem
               restaurant={restaurant}
               key={restaurant.id}
-              userFavoriteRestaurant={userFavoriteRestaurant}
+              userFavoriteRestaurants={userFavoriteRestaurants}
               className="min-w-full max-w-full"
             />
           ))}

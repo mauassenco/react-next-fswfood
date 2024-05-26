@@ -41,7 +41,7 @@ const Restaurants = ({ userFavoriteRestaurants }: RestaurantProps) => {
             <RestaurantItem
               key={restaurant.id}
               restaurant={restaurant}
-              userFavoriteRestaurant={userFavoriteRestaurants}
+              userFavoriteRestaurants={userFavoriteRestaurants}
               className="min-w-full max-w-full"
             />
           ))}

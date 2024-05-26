@@ -14,16 +14,16 @@ import { useSession } from "next-auth/react";
 interface RestaurantItemProps {
   restaurant: Restaurant;
   className?: string;
-  userFavoriteRestaurant: UserFavoriteRestaurant[];
+  userFavoriteRestaurants: UserFavoriteRestaurant[];
 }
 
 const RestaurantItem = ({
   restaurant,
   className,
-  userFavoriteRestaurant,
+  userFavoriteRestaurants,
 }: RestaurantItemProps) => {
   const { data } = useSession();
-  const isFavorite = userFavoriteRestaurant.some(
+  const isFavorite = userFavoriteRestaurants.some(
     (fav) => fav.restaurantId === restaurant.id,
   );
 
