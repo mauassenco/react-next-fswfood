@@ -10,6 +10,7 @@ import { cn } from "../_lib/utils";
 import { toggleFavoriteRestaurant } from "../_actions/restaurants";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import useToggleFavoriteRestaurant from "../_hooks/use-toggle-favorite-restaurant";
 
 interface RestaurantItemProps {
   restaurant: Restaurant;
@@ -27,20 +28,26 @@ const RestaurantItem = ({
     (fav) => fav.restaurantId === restaurant.id,
   );
 
-  const handleFavoriteClick = async () => {
-    if (!data?.user.id) return;
+  // const handleFavoriteClick = async () => {
+  //   if (!data?.user.id) return;
 
-    try {
-      await toggleFavoriteRestaurant(data?.user.id, restaurant.id);
-      return toast.success(
-        isFavorite
-          ? "Restaurante removido dos seus favoritos"
-          : "Restaurante adicionado aos seus favoritos",
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     await toggleFavoriteRestaurant(data?.user.id, restaurant.id);
+  //     return toast.success(
+  //       isFavorite
+  //         ? "Restaurante removido dos seus favoritos"
+  //         : "Restaurante adicionado aos seus favoritos",
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const { handleFavoriteClick } = useToggleFavoriteRestaurant({
+    restaurantId: restaurant.id,
+    userId: data?.user.id,
+    restaurantIsFavorited: isFavorite,
+  });
 
   return (
     <div className={cn("min-w-[266px] max-w-[266px]", className)}>
