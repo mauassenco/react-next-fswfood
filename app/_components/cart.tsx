@@ -78,6 +78,11 @@ const Cart = ({ setIsOpen }: CartProps) => {
           label: "Meus Pedidos",
           onClick: () => router.push("/my-orders"),
         },
+        actionButtonStyle: {
+          backgroundColor: "red",
+          color: "white",
+          fontWeight: "600",
+        },
       });
     } catch (error) {
       console.error(error);

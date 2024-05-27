@@ -31,6 +31,11 @@ const useToggleFavoriteRestaurant = ({
             label: "Ver Favoritos",
             onClick: () => router.push("/my-favorite-restaurants"),
           },
+          actionButtonStyle: {
+            backgroundColor: "red",
+            color: "white",
+            fontWeight: "600",
+          },
         },
       );
     } catch (error) {
