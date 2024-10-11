@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import Cart from "@/app/_components/cart";
-import DeliveryInfo from "@/app/_components/delivery-info";
-import DiscountBadge from "@/app/_components/discount-badge";
-import ProductList from "@/app/_components/product-list";
+import Cart from "@/app/_components/cart"
+import DeliveryInfo from "@/app/_components/delivery-info"
+import DiscountBadge from "@/app/_components/discount-badge"
+import ProductList from "@/app/_components/product-list"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,77 +13,77 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/app/_components/ui/alert-dialog";
-import { Button } from "@/app/_components/ui/button";
+} from "@/app/_components/ui/alert-dialog"
+import { Button } from "@/app/_components/ui/button"
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from "@/app/_components/ui/sheet";
-import { CartContext } from "@/app/_context/cart";
+} from "@/app/_components/ui/sheet"
+import { CartContext } from "@/app/_context/cart"
 import {
   formatCurrency,
   calculateProductTotalPrice,
-} from "@/app/_helpers/price";
-import { Prisma } from "@prisma/client";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import Image from "next/image";
-import { useContext, useState } from "react";
+} from "@/app/_helpers/price"
+import { Prisma } from "@prisma/client"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
+import Image from "next/image"
+import { useContext, useState } from "react"
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
     include: {
-      restaurant: true;
-    };
-  }>;
+      restaurant: true
+    }
+  }>
   complementaryProducts: Prisma.ProductGetPayload<{
     include: {
-      restaurant: true;
-    };
-  }>[];
+      restaurant: true
+    }
+  }>[]
 }
 
 const ProductDetails = ({
   product,
   complementaryProducts,
 }: ProductDetailsProps) => {
-  const [quantity, setQuantity] = useState(1);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1)
+  const [isCartOpen, setIsCartOpen] = useState(false)
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
-    useState(false);
+    useState(false)
 
-  const { addProductToCart, products } = useContext(CartContext);
+  const { addProductToCart, products } = useContext(CartContext)
 
   const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
-    addProductToCart({ product: { ...product, quantity }, emptyCart });
-    setIsCartOpen(true);
-  };
+    addProductToCart({ product: { ...product, quantity }, emptyCart })
+    setIsCartOpen(true)
+  }
 
   const handleAddToCartClick = () => {
     // VERIFICAR SE HÁ ALGUM PRODUTO DE OUTRO RESTAURANTE NO CARRINHO
     const hasDifferentRestaurantProduct = products.some(
       (cartProduct) => cartProduct.restaurantId !== product.restaurantId,
-    );
+    )
 
     // SE HOUVER, ABRIR UM AVISO
     if (hasDifferentRestaurantProduct) {
-      return setIsConfirmationDialogOpen(true);
+      return setIsConfirmationDialogOpen(true)
     }
 
     addToCart({
       emptyCart: false,
-    });
-  };
+    })
+  }
 
   const handleIncreaseQuantityClick = () =>
-    setQuantity((currentState) => currentState + 1);
+    setQuantity((currentState) => currentState + 1)
   const handleDecreaseQuantityClick = () =>
     setQuantity((currentState) => {
-      if (currentState === 1) return 1;
+      if (currentState === 1) return 1
 
-      return currentState - 1;
-    });
+      return currentState - 1
+    })
 
   return (
     <>
@@ -206,7 +206,7 @@ const ProductDetails = ({
         </AlertDialogContent>
       </AlertDialog>
     </>
-  );
-};
+  )
+}
 
-export default ProductDetails;
+export default ProductDetails

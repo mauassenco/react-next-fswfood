@@ -1,13 +1,13 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client")
 
-const prismaClient = new PrismaClient();
+const prismaClient = new PrismaClient()
 
 const description =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec nisl lorem. Praesent pharetra, sapien ut fringilla malesuada, nisi felis ullamcorper ex, eu consectetur elit dolor sed dolor. Praesent orci mi, auctor aliquet semper vitae, volutpat quis augue. Cras porta sapien nec pharetra laoreet. Sed at velit sit amet mauris varius volutpat sit amet id mauris. Maecenas vitae mattis ante. Morbi nulla quam, sagittis at orci eu, scelerisque auctor neque.";
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec nisl lorem. Praesent pharetra, sapien ut fringilla malesuada, nisi felis ullamcorper ex, eu consectetur elit dolor sed dolor. Praesent orci mi, auctor aliquet semper vitae, volutpat quis augue. Cras porta sapien nec pharetra laoreet. Sed at velit sit amet mauris varius volutpat sit amet id mauris. Maecenas vitae mattis ante. Morbi nulla quam, sagittis at orci eu, scelerisque auctor neque."
 
 const createBurguers = async (
   desertsCategoryId: string,
-  juicesCategoryId: string
+  juicesCategoryId: string,
 ) => {
   const burguersCategory = await prismaClient.category.create({
     data: {
@@ -15,7 +15,7 @@ const createBurguers = async (
       imageUrl:
         "https://utfs.io/f/92918634-fc03-4425-bc1f-d1fbc8933586-vzk6us.png",
     },
-  });
+  })
 
   const burguerRestaurants = [
     {
@@ -66,17 +66,17 @@ const createBurguers = async (
         },
       },
     },
-  ];
+  ]
 
   for (const item of burguerRestaurants) {
     const restaurant = await prismaClient.restaurant.create({
       data: item,
-    });
+    })
 
-    await createDeserts(restaurant.id, desertsCategoryId);
-    await createJuices(restaurant.id, juicesCategoryId);
+    await createDeserts(restaurant.id, desertsCategoryId)
+    await createJuices(restaurant.id, juicesCategoryId)
 
-    console.log(`Created ${restaurant.name}`);
+    console.log(`Created ${restaurant.name}`)
 
     const burguerProducts = [
       {
@@ -187,21 +187,21 @@ const createBurguers = async (
           },
         },
       },
-    ];
+    ]
 
     for (const product of burguerProducts) {
       await prismaClient.product.create({
         data: product,
-      });
+      })
 
-      console.log(`Created ${product.name}`);
+      console.log(`Created ${product.name}`)
     }
   }
-};
+}
 
 const createPizzas = async (
   desertsCategoryId: string,
-  juicesCategoryId: string
+  juicesCategoryId: string,
 ) => {
   const pizzasCategory = await prismaClient.category.create({
     data: {
@@ -209,7 +209,7 @@ const createPizzas = async (
       imageUrl:
         "https://utfs.io/f/d9ca0163-6bc8-42dc-bbb3-377636849cd8-mtj7yz.png",
     },
-  });
+  })
 
   const pizzaRestaurants = [
     {
@@ -260,17 +260,17 @@ const createPizzas = async (
         },
       },
     },
-  ];
+  ]
 
   for (const item of pizzaRestaurants) {
     const restaurant = await prismaClient.restaurant.create({
       data: item,
-    });
+    })
 
-    await createDeserts(restaurant.id, desertsCategoryId);
-    await createJuices(restaurant.id, juicesCategoryId);
+    await createDeserts(restaurant.id, desertsCategoryId)
+    await createJuices(restaurant.id, juicesCategoryId)
 
-    console.log(`Created ${restaurant.name}`);
+    console.log(`Created ${restaurant.name}`)
 
     const pizzaProducts = [
       {
@@ -363,21 +363,21 @@ const createPizzas = async (
           },
         },
       },
-    ];
+    ]
 
     for (const product of pizzaProducts) {
       await prismaClient.product.create({
         data: product,
-      });
+      })
 
-      console.log(`Created ${product.name}`);
+      console.log(`Created ${product.name}`)
     }
   }
-};
+}
 
 const createJapanese = async (
   desertsCategoryId: string,
-  juicesCategoryId: string
+  juicesCategoryId: string,
 ) => {
   const japaneseCategory = await prismaClient.category.create({
     data: {
@@ -385,7 +385,7 @@ const createJapanese = async (
       imageUrl:
         "https://utfs.io/f/ccc2351a-49b0-4613-a233-3b3b3bd6a47c-yd9ii3.png",
     },
-  });
+  })
 
   const japaneseRestaurants = [
     {
@@ -436,17 +436,17 @@ const createJapanese = async (
         },
       },
     },
-  ];
+  ]
 
   for (const item of japaneseRestaurants) {
     const restaurant = await prismaClient.restaurant.create({
       data: item,
-    });
+    })
 
-    console.log(`Created ${restaurant.name}`);
+    console.log(`Created ${restaurant.name}`)
 
-    await createDeserts(restaurant.id, desertsCategoryId);
-    await createJuices(restaurant.id, juicesCategoryId);
+    await createDeserts(restaurant.id, desertsCategoryId)
+    await createJuices(restaurant.id, juicesCategoryId)
 
     const japaneseProducts = [
       {
@@ -557,21 +557,21 @@ const createJapanese = async (
           },
         },
       },
-    ];
+    ]
 
     for (const product of japaneseProducts) {
       await prismaClient.product.create({
         data: product,
-      });
+      })
 
-      console.log(`Created ${product.name}`);
+      console.log(`Created ${product.name}`)
     }
   }
-};
+}
 
 const createBrazilian = async (
   desertsCategoryId: string,
-  juicesCategoryId: string
+  juicesCategoryId: string,
 ) => {
   const brazilianCategory = await prismaClient.category.create({
     data: {
@@ -579,7 +579,7 @@ const createBrazilian = async (
       imageUrl:
         "https://utfs.io/f/d84e3a7a-fcf6-4d3d-86bf-d62c0b1febdc-m1yv44.png",
     },
-  });
+  })
 
   const brazilianRestaurants = [
     {
@@ -630,17 +630,17 @@ const createBrazilian = async (
         },
       },
     },
-  ];
+  ]
 
   for (const item of brazilianRestaurants) {
     const restaurant = await prismaClient.restaurant.create({
       data: item,
-    });
+    })
 
-    console.log(`Created ${restaurant.name}`);
+    console.log(`Created ${restaurant.name}`)
 
-    await createDeserts(restaurant.id, desertsCategoryId);
-    await createJuices(restaurant.id, juicesCategoryId);
+    await createDeserts(restaurant.id, desertsCategoryId)
+    await createJuices(restaurant.id, juicesCategoryId)
 
     const brazilianProducts = [
       {
@@ -751,17 +751,17 @@ const createBrazilian = async (
           },
         },
       },
-    ];
+    ]
 
     for (const product of brazilianProducts) {
       await prismaClient.product.create({
         data: product,
-      });
+      })
 
-      console.log(`Created ${product.name}`);
+      console.log(`Created ${product.name}`)
     }
   }
-};
+}
 
 const createDeserts = async (restaurantId: string, categoryId: string) => {
   await prismaClient.restaurant.update({
@@ -775,7 +775,7 @@ const createDeserts = async (restaurantId: string, categoryId: string) => {
         },
       },
     },
-  });
+  })
 
   const desertProducts = [
     {
@@ -886,16 +886,16 @@ const createDeserts = async (restaurantId: string, categoryId: string) => {
         },
       },
     },
-  ];
+  ]
 
   for (const product of desertProducts) {
     await prismaClient.product.create({
       data: product,
-    });
+    })
 
-    console.log(`Created ${product.name}`);
+    console.log(`Created ${product.name}`)
   }
-};
+}
 
 const createJuices = async (restaurantId: string, categoryId: string) => {
   await prismaClient.restaurant.update({
@@ -909,7 +909,7 @@ const createJuices = async (restaurantId: string, categoryId: string) => {
         },
       },
     },
-  });
+  })
 
   const juiceProducts = [
     {
@@ -1020,16 +1020,16 @@ const createJuices = async (restaurantId: string, categoryId: string) => {
         },
       },
     },
-  ];
+  ]
 
   for (const product of juiceProducts) {
     await prismaClient.product.create({
       data: product,
-    });
+    })
 
-    console.log(`Created ${product.name}`);
+    console.log(`Created ${product.name}`)
   }
-};
+}
 
 const main = async () => {
   const desertsCategory = await prismaClient.category.create({
@@ -1038,7 +1038,7 @@ const main = async () => {
       imageUrl:
         "https://utfs.io/f/0f81c141-4787-4a81-abce-cbd9c6596c7a-xayf5d.png",
     },
-  });
+  })
 
   const juicesCategory = await prismaClient.category.create({
     data: {
@@ -1046,22 +1046,22 @@ const main = async () => {
       imageUrl:
         "https://utfs.io/f/9f3013bf-0778-4d80-a330-4da2682deaf9-o41y62.png",
     },
-  });
+  })
 
-  await createBurguers(desertsCategory.id, juicesCategory.id);
-  await createPizzas(desertsCategory.id, juicesCategory.id);
-  await createJapanese(desertsCategory.id, juicesCategory.id);
-  await createBrazilian(desertsCategory.id, juicesCategory.id);
-};
+  await createBurguers(desertsCategory.id, juicesCategory.id)
+  await createPizzas(desertsCategory.id, juicesCategory.id)
+  await createJapanese(desertsCategory.id, juicesCategory.id)
+  await createBrazilian(desertsCategory.id, juicesCategory.id)
+}
 
 main()
   .then(() => {
-    console.log("Seed do banco de dados realizado com sucesso!");
+    console.log("Seed do banco de dados realizado com sucesso!")
   })
   .catch((error) => {
-    console.error(error);
-    process.exit(1);
+    console.error(error)
+    process.exit(1)
   })
   .finally(async () => {
-    await prismaClient.$disconnect();
-  });
+    await prismaClient.$disconnect()
+  })

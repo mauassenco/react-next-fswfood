@@ -1,13 +1,13 @@
-import { toast } from "sonner";
-import { toggleFavoriteRestaurant } from "../_actions/restaurants";
-import { UserFavoriteRestaurant } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { toast } from "sonner"
+import { toggleFavoriteRestaurant } from "../_actions/restaurants"
+import { UserFavoriteRestaurant } from "@prisma/client"
+import { useRouter } from "next/navigation"
 
 interface UseToggleFavoriteRestaurantProps {
-  userId?: string;
-  userFavoriteRestaurants?: UserFavoriteRestaurant[];
-  restaurantId: string;
-  restaurantIsFavorited?: boolean;
+  userId?: string
+  userFavoriteRestaurants?: UserFavoriteRestaurant[]
+  restaurantId: string
+  restaurantIsFavorited?: boolean
 }
 
 const useToggleFavoriteRestaurant = ({
@@ -15,13 +15,13 @@ const useToggleFavoriteRestaurant = ({
   restaurantId,
   restaurantIsFavorited,
 }: UseToggleFavoriteRestaurantProps) => {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleFavoriteClick = async () => {
-    if (!userId) return;
+    if (!userId) return
 
     try {
-      await toggleFavoriteRestaurant(userId, restaurantId);
+      await toggleFavoriteRestaurant(userId, restaurantId)
       toast.info(
         restaurantIsFavorited
           ? "Restaurante removido dos favoritos."
@@ -37,13 +37,13 @@ const useToggleFavoriteRestaurant = ({
             fontWeight: "600",
           },
         },
-      );
+      )
     } catch (error) {
-      toast.error("Erro ao favoritar restaurante.");
+      toast.error("Erro ao favoritar restaurante.")
     }
-  };
+  }
 
-  return { handleFavoriteClick };
-};
+  return { handleFavoriteClick }
+}
 
-export default useToggleFavoriteRestaurant;
+export default useToggleFavoriteRestaurant

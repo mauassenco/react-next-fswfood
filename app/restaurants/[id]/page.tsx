@@ -1,18 +1,18 @@
-import { db } from "@/app/_lib/prisma";
-import { notFound } from "next/navigation";
-import RestaurantImage from "./_components/restaurant-image";
-import Image from "next/image";
-import { StarIcon } from "lucide-react";
-import DeliveryInfo from "@/app/_components/delivery-info";
-import ProductList from "@/app/_components/product-list";
-import CartBanner from "./_components/cart-banner";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/_lib/auth";
+import { db } from "@/app/_lib/prisma"
+import { notFound } from "next/navigation"
+import RestaurantImage from "./_components/restaurant-image"
+import Image from "next/image"
+import { StarIcon } from "lucide-react"
+import DeliveryInfo from "@/app/_components/delivery-info"
+import ProductList from "@/app/_components/product-list"
+import CartBanner from "./_components/cart-banner"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/_lib/auth"
 
 interface RestaurantPageProps {
   params: {
-    id: string;
-  };
+    id: string
+  }
 }
 
 const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
@@ -51,18 +51,18 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         },
       },
     },
-  });
+  })
 
   if (!restaurant) {
-    return notFound();
+    return notFound()
   }
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions)
 
   const userFavoriteRestaurants = await db.userFavoriteRestaurant.findMany({
     where: {
       userId: session?.user.id,
     },
-  });
+  })
 
   return (
     <div>
@@ -129,7 +129,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
 
       <CartBanner restaurant={JSON.parse(JSON.stringify(restaurant))} />
     </div>
-  );
-};
+  )
+}
 
-export default RestaurantPage;
+export default RestaurantPage

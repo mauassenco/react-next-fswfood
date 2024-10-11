@@ -1,15 +1,15 @@
-import { getServerSession } from "next-auth";
-import { db } from "../_lib/prisma";
-import { authOptions } from "../_lib/auth";
-import { redirect } from "next/navigation";
-import Header from "../_components/header";
-import OrderItem from "./components/order-item";
+import { getServerSession } from "next-auth"
+import { db } from "../_lib/prisma"
+import { authOptions } from "../_lib/auth"
+import { redirect } from "next/navigation"
+import Header from "../_components/header"
+import OrderItem from "./components/order-item"
 
 const MyOrdersPage = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions)
 
   if (!session?.user) {
-    return redirect("/");
+    return redirect("/")
   }
 
   const orders = await db.order.findMany({
@@ -24,7 +24,7 @@ const MyOrdersPage = async () => {
         },
       },
     },
-  });
+  })
 
   return (
     <>
@@ -40,6 +40,6 @@ const MyOrdersPage = async () => {
         </div>
       </div>
     </>
-  );
-};
-export default MyOrdersPage;
+  )
+}
+export default MyOrdersPage

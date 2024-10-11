@@ -1,7 +1,7 @@
-"use server";
+"use server"
 
-import { revalidatePath } from "next/cache";
-import { db } from "../_lib/prisma";
+import { revalidatePath } from "next/cache"
+import { db } from "../_lib/prisma"
 
 export const toggleFavoriteRestaurant = async (
   userId: string,
@@ -12,7 +12,7 @@ export const toggleFavoriteRestaurant = async (
       userId,
       restaurantId,
     },
-  });
+  })
 
   if (isFavorite) {
     await db.userFavoriteRestaurant.delete({
@@ -22,9 +22,9 @@ export const toggleFavoriteRestaurant = async (
           restaurantId,
         },
       },
-    });
-    revalidatePath("/");
-    return;
+    })
+    revalidatePath("/")
+    return
   }
 
   await db.userFavoriteRestaurant.create({
@@ -32,6 +32,6 @@ export const toggleFavoriteRestaurant = async (
       userId,
       restaurantId,
     },
-  });
-  revalidatePath("/");
-};
+  })
+  revalidatePath("/")
+}

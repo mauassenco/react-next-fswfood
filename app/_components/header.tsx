@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import { Button } from "./ui/button";
+import Image from "next/image"
+import { Button } from "./ui/button"
 import {
   CakeSliceIcon,
   ChefHatIcon,
@@ -15,24 +15,24 @@ import {
   MenuIcon,
   PizzaIcon,
   ScrollTextIcon,
-} from "lucide-react";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+} from "lucide-react"
+import Link from "next/link"
+import { signIn, signOut, useSession } from "next-auth/react"
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "./ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Separator } from "./ui/separator";
+} from "./ui/sheet"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import { Separator } from "./ui/separator"
 
 const Header = () => {
-  const { data } = useSession();
+  const { data } = useSession()
 
-  const handleSignOutClick = () => signOut();
-  const handleSignInClick = () => signIn();
+  const handleSignOutClick = () => signOut()
+  const handleSignInClick = () => signIn()
 
   return (
     <div className="flex justify-between px-5 pt-6">
@@ -227,7 +227,7 @@ const Header = () => {
         </SheetContent>
       </Sheet>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

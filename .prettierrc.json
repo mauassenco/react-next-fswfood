@@ -1,0 +1,9 @@
+{
+  "tabWidth": 2,
+  "semi": false,
+  "tailwindPreserveDuplicates": false,
+  "singleQuote": false,
+  "tailwindConfig": "tailwind.config.js",
+  "tailwindFunctions": ["clsx", "tw"],
+  "plugins": ["prettier-plugin-tailwindcss"]
+}

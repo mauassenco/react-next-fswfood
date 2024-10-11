@@ -1,12 +1,12 @@
-import Header from "@/app/_components/header";
-import ProductItem from "@/app/_components/product-item";
-import { db } from "@/app/_lib/prisma";
-import { notFound } from "next/navigation";
+import Header from "@/app/_components/header"
+import ProductItem from "@/app/_components/product-item"
+import { db } from "@/app/_lib/prisma"
+import { notFound } from "next/navigation"
 
 interface CategoriesPageProps {
   params: {
-    id: string;
-  };
+    id: string
+  }
 }
 
 const CategoriesPage = async ({ params: { id } }: CategoriesPageProps) => {
@@ -25,10 +25,10 @@ const CategoriesPage = async ({ params: { id } }: CategoriesPageProps) => {
         },
       },
     },
-  });
+  })
 
   if (!category) {
-    return notFound();
+    return notFound()
   }
 
   return (
@@ -48,7 +48,7 @@ const CategoriesPage = async ({ params: { id } }: CategoriesPageProps) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CategoriesPage;
+export default CategoriesPage

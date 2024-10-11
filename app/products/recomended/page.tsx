@@ -1,6 +1,6 @@
-import Header from "@/app/_components/header";
-import ProductItem from "@/app/_components/product-item";
-import { db } from "@/app/_lib/prisma";
+import Header from "@/app/_components/header"
+import ProductItem from "@/app/_components/product-item"
+import { db } from "@/app/_lib/prisma"
 
 const RecomendedProductsPage = async () => {
   const products = await db.product.findMany({
@@ -17,7 +17,7 @@ const RecomendedProductsPage = async () => {
         },
       },
     },
-  });
+  })
 
   return (
     <>
@@ -36,7 +36,7 @@ const RecomendedProductsPage = async () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default RecomendedProductsPage;
+export default RecomendedProductsPage

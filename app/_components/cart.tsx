@@ -1,14 +1,14 @@
-import { useContext, useState } from "react";
-import { CartContext } from "../_context/cart";
-import CartItem from "./cart-item";
-import { Card, CardContent } from "./ui/card";
-import { formatCurrency } from "../_helpers/price";
-import { Separator } from "./ui/separator";
-import { Button } from "./ui/button";
-import { createOrder } from "../_actions/order";
-import { OrderStatus } from "@prisma/client";
-import { useSession } from "next-auth/react";
-import { Loader2 } from "lucide-react";
+import { useContext, useState } from "react"
+import { CartContext } from "../_context/cart"
+import CartItem from "./cart-item"
+import { Card, CardContent } from "./ui/card"
+import { formatCurrency } from "../_helpers/price"
+import { Separator } from "./ui/separator"
+import { Button } from "./ui/button"
+import { createOrder } from "../_actions/order"
+import { OrderStatus } from "@prisma/client"
+import { useSession } from "next-auth/react"
+import { Loader2 } from "lucide-react"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,33 +18,33 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "./ui/alert-dialog";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+} from "./ui/alert-dialog"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 interface CartProps {
   // eslint-disable-next-line no-unused-vars
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: (isOpen: boolean) => void
 }
 
 const Cart = ({ setIsOpen }: CartProps) => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
-  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false)
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false)
 
-  const { data } = useSession();
+  const { data } = useSession()
 
   const { products, subtotalPrice, totalPrice, totalDiscounts, clearCart } =
-    useContext(CartContext);
+    useContext(CartContext)
 
   const handleFinishOrderClick = async () => {
-    if (!data?.user) return;
+    if (!data?.user) return
 
-    const restaurant = products[0].restaurant;
+    const restaurant = products[0].restaurant
 
     try {
-      setIsSubmitLoading(true);
+      setIsSubmitLoading(true)
 
       await createOrder({
         subtotalPrice,
@@ -67,10 +67,10 @@ const Cart = ({ setIsOpen }: CartProps) => {
             })),
           },
         },
-      });
+      })
 
-      clearCart();
-      setIsOpen(false);
+      clearCart()
+      setIsOpen(false)
 
       toast("Pedido finalizado com sucesso!", {
         description: "Você pode acompanhá-lo na tela dos seus pedidos.",
@@ -83,13 +83,13 @@ const Cart = ({ setIsOpen }: CartProps) => {
           color: "white",
           fontWeight: "600",
         },
-      });
+      })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     } finally {
-      setIsSubmitLoading(false);
+      setIsSubmitLoading(false)
     }
-  };
+  }
 
   return (
     <>
@@ -183,7 +183,7 @@ const Cart = ({ setIsOpen }: CartProps) => {
         </AlertDialogContent>
       </AlertDialog>
     </>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart

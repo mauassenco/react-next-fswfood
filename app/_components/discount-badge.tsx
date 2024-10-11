@@ -1,8 +1,8 @@
-import { Product } from "@prisma/client";
-import { ArrowDownIcon } from "lucide-react";
+import { Product } from "@prisma/client"
+import { ArrowDownIcon } from "lucide-react"
 
 interface DiscountBadgeProps {
-  product: Pick<Product, "discountPercentage">;
+  product: Pick<Product, "discountPercentage">
 }
 
 const DiscountBadge = ({ product }: DiscountBadgeProps) => {
@@ -13,7 +13,7 @@ const DiscountBadge = ({ product }: DiscountBadgeProps) => {
         {product.discountPercentage}%
       </span>
     </div>
-  );
-};
+  )
+}
 
-export default DiscountBadge;
+export default DiscountBadge

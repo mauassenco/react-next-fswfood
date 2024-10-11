@@ -1,10 +1,10 @@
-import { BikeIcon, TimerIcon } from "lucide-react";
-import { Card } from "./ui/card";
-import { Restaurant } from "@prisma/client";
-import { formatCurrency } from "../_helpers/price";
+import { BikeIcon, TimerIcon } from "lucide-react"
+import { Card } from "./ui/card"
+import { Restaurant } from "@prisma/client"
+import { formatCurrency } from "../_helpers/price"
 
 interface DeliveryInfoProps {
-  restaurant: Pick<Restaurant, "deliveryFee" | "deliveryTimeMinutes">;
+  restaurant: Pick<Restaurant, "deliveryFee" | "deliveryTimeMinutes">
 }
 
 const DeliveryInfo = ({ restaurant }: DeliveryInfoProps) => {
@@ -40,7 +40,7 @@ const DeliveryInfo = ({ restaurant }: DeliveryInfoProps) => {
         </div>
       </Card>
     </>
-  );
-};
+  )
+}
 
-export default DeliveryInfo;
+export default DeliveryInfo

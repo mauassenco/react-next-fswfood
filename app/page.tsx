@@ -1,13 +1,14 @@
-import CategoryList from "./_components/category-list";
-import Header from "./_components/header";
-import Search from "./_components/search";
-import ProductList from "./_components/product-list";
-import { Button } from "./_components/ui/button";
-import { ChevronRightIcon } from "lucide-react";
-import { db } from "./_lib/prisma";
-import PromoBanner from "./_components/promo-banner";
-import RestaurantList from "./_components/restaurant-list";
-import Link from "next/link";
+import CategoryList from "./_components/category-list"
+import Header from "./_components/header"
+import Search from "./_components/search"
+import ProductList from "./_components/product-list"
+import { Button } from "./_components/ui/button"
+import { ChevronRightIcon } from "lucide-react"
+import { db } from "./_lib/prisma"
+import PromoBanner from "./_components/promo-banner"
+import RestaurantList from "./_components/restaurant-list"
+import Link from "next/link"
+import Hero from "./_components/hero"
 
 const fetch = async () => {
   const getProducts = db.product.findMany({
@@ -24,31 +25,31 @@ const fetch = async () => {
         },
       },
     },
-  });
+  })
 
   const getBurguersCategory = db.category.findFirst({
     where: {
       name: "Hambúrgueres",
     },
-  });
+  })
 
   const getPizzasCategory = db.category.findFirst({
     where: {
       name: "Pizzas",
     },
-  });
+  })
 
   const [products, burguersCategory, pizzaCategory] = await Promise.all([
     getProducts,
     getBurguersCategory,
     getPizzasCategory,
-  ]);
+  ])
 
-  return { products, burguersCategory, pizzaCategory };
-};
+  return { products, burguersCategory, pizzaCategory }
+}
 
 const Home = async () => {
-  const { products, burguersCategory, pizzaCategory } = await fetch();
+  const { products, burguersCategory, pizzaCategory } = await fetch()
 
   return (
     <>
@@ -56,6 +57,7 @@ const Home = async () => {
 
       <div className=" px-5 pt-6">
         <Search />
+        <Hero />
       </div>
 
       <div className="px-5 pt-6">
@@ -113,7 +115,7 @@ const Home = async () => {
         <RestaurantList />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

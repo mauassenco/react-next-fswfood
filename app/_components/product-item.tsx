@@ -1,23 +1,23 @@
-"use client";
+"use client"
 
-import { Prisma } from "@prisma/client";
-import Image from "next/image";
-import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
-import { ArrowDownIcon } from "lucide-react";
-import Link from "next/link";
-import { cn } from "../_lib/utils";
+import { Prisma } from "@prisma/client"
+import Image from "next/image"
+import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price"
+import { ArrowDownIcon } from "lucide-react"
+import Link from "next/link"
+import { cn } from "../_lib/utils"
 
 interface ProductItemProps {
   product: Prisma.ProductGetPayload<{
     include: {
       restaurant: {
         select: {
-          name: true;
-        };
-      };
-    };
-  }>;
-  className?: string;
+          name: true
+        }
+      }
+    }
+  }>
+  className?: string
 }
 
 const ProductItem = ({ product, className }: ProductItemProps) => {
@@ -65,7 +65,7 @@ const ProductItem = ({ product, className }: ProductItemProps) => {
         </div>
       </div>
     </Link>
-  );
-};
+  )
+}
 
-export default ProductItem;
+export default ProductItem

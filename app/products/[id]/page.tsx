@@ -1,12 +1,12 @@
-import { db } from "@/app/_lib/prisma";
-import { notFound } from "next/navigation";
-import ProductImage from "./_components/product-image";
-import ProductDetails from "./_components/product-details";
+import { db } from "@/app/_lib/prisma"
+import { notFound } from "next/navigation"
+import ProductImage from "./_components/product-image"
+import ProductDetails from "./_components/product-details"
 
 interface ProductPageProps {
   params: {
-    id: string;
-  };
+    id: string
+  }
 }
 
 const ProductPage = async ({ params: { id } }: ProductPageProps) => {
@@ -17,10 +17,10 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
     include: {
       restaurant: true,
     },
-  });
+  })
 
   if (!product) {
-    return notFound();
+    return notFound()
   }
 
   const juices = await db.product.findMany({
@@ -35,7 +35,7 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
     include: {
       restaurant: true,
     },
-  });
+  })
 
   return (
     <div>
@@ -48,7 +48,7 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
         complementaryProducts={juices}
       />
     </div>
-  );
-};
+  )
+}
 
-export default ProductPage;
+export default ProductPage

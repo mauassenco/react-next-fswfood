@@ -1,11 +1,11 @@
-import Header from "@/app/_components/header";
-import RestaurantItem from "@/app/_components/restaurant-item";
-import { authOptions } from "@/app/_lib/auth";
-import { db } from "@/app/_lib/prisma";
-import { getServerSession } from "next-auth";
+import Header from "@/app/_components/header"
+import RestaurantItem from "@/app/_components/restaurant-item"
+import { authOptions } from "@/app/_lib/auth"
+import { db } from "@/app/_lib/prisma"
+import { getServerSession } from "next-auth"
 
 const RecomendedRestaurants = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions)
   const userFavoriteRestaurants = await db.userFavoriteRestaurant.findMany({
     where: {
       userId: session?.user?.id,
@@ -13,9 +13,9 @@ const RecomendedRestaurants = async () => {
     include: {
       restaurant: true,
     },
-  });
+  })
 
-  const restaurants = await db.restaurant.findMany({});
+  const restaurants = await db.restaurant.findMany({})
 
   return (
     <>
@@ -37,7 +37,7 @@ const RecomendedRestaurants = async () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default RecomendedRestaurants;
+export default RecomendedRestaurants

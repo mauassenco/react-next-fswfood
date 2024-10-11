@@ -1,19 +1,19 @@
-"use client";
+"use client"
 
-import { Restaurant, UserFavoriteRestaurant } from "@prisma/client";
-import { BikeIcon, HeartIcon, StarIcon, TimerIcon } from "lucide-react";
-import Image from "next/image";
-import { formatCurrency } from "../_helpers/price";
-import { Button } from "./ui/button";
-import Link from "next/link";
-import { cn } from "../_lib/utils";
-import { useSession } from "next-auth/react";
-import useToggleFavoriteRestaurant from "../_hooks/use-toggle-favorite-restaurant";
+import { Restaurant, UserFavoriteRestaurant } from "@prisma/client"
+import { BikeIcon, HeartIcon, StarIcon, TimerIcon } from "lucide-react"
+import Image from "next/image"
+import { formatCurrency } from "../_helpers/price"
+import { Button } from "./ui/button"
+import Link from "next/link"
+import { cn } from "../_lib/utils"
+import { useSession } from "next-auth/react"
+import useToggleFavoriteRestaurant from "../_hooks/use-toggle-favorite-restaurant"
 
 interface RestaurantItemProps {
-  restaurant: Restaurant;
-  className?: string;
-  userFavoriteRestaurants: UserFavoriteRestaurant[];
+  restaurant: Restaurant
+  className?: string
+  userFavoriteRestaurants: UserFavoriteRestaurant[]
 }
 
 const RestaurantItem = ({
@@ -21,16 +21,16 @@ const RestaurantItem = ({
   className,
   userFavoriteRestaurants,
 }: RestaurantItemProps) => {
-  const { data } = useSession();
+  const { data } = useSession()
   const isFavorite = userFavoriteRestaurants.some(
     (fav) => fav.restaurantId === restaurant.id,
-  );
+  )
 
   const { handleFavoriteClick } = useToggleFavoriteRestaurant({
     restaurantId: restaurant.id,
     userId: data?.user.id,
     restaurantIsFavorited: isFavorite,
-  });
+  })
 
   return (
     <div className={cn("min-w-[266px] max-w-[266px]", className)}>
@@ -77,7 +77,7 @@ const RestaurantItem = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default RestaurantItem;
+export default RestaurantItem

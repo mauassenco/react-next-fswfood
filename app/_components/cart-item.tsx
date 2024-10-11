@@ -1,12 +1,12 @@
-import Image from "next/image";
-import { CartContext, CartProduct } from "../_context/cart";
-import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
-import { Button } from "./ui/button";
-import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from "lucide-react";
-import { memo, useContext } from "react";
+import Image from "next/image"
+import { CartContext, CartProduct } from "../_context/cart"
+import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price"
+import { Button } from "./ui/button"
+import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from "lucide-react"
+import { memo, useContext } from "react"
 
 interface CartItemProps {
-  cartProduct: CartProduct;
+  cartProduct: CartProduct
 }
 
 const CartItem = ({ cartProduct }: CartItemProps) => {
@@ -14,15 +14,15 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
     decreaseProductQuantity,
     increaseProductQuantity,
     removeProductFromCart,
-  } = useContext(CartContext);
+  } = useContext(CartContext)
 
   const handleDecreaseQuantityClick = () =>
-    decreaseProductQuantity(cartProduct.id);
+    decreaseProductQuantity(cartProduct.id)
 
   const handleIncreaseQuantityClick = () =>
-    increaseProductQuantity(cartProduct.id);
+    increaseProductQuantity(cartProduct.id)
 
-  const handleRemoveClick = () => removeProductFromCart(cartProduct.id);
+  const handleRemoveClick = () => removeProductFromCart(cartProduct.id)
 
   return (
     <div className="flex items-center justify-between">
@@ -91,9 +91,9 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
         <TrashIcon size={16} />
       </Button>
     </div>
-  );
-};
+  )
+}
 
 export default memo(CartItem, (prev, next) => {
-  return prev.cartProduct.quantity === next.cartProduct.quantity;
-});
+  return prev.cartProduct.quantity === next.cartProduct.quantity
+})
