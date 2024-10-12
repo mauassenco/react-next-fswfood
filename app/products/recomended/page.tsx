@@ -20,12 +20,12 @@ const RecomendedProductsPage = async () => {
   })
 
   return (
-    <>
+    <div className="lg:container">
       <Header />
       <div className="px-6 py-5">
         <h2 className="mb-6 text-lg font-semibold">Pedidos Recomendados</h2>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
           {products.map((product) => (
             <ProductItem
               product={product}
@@ -35,7 +35,7 @@ const RecomendedProductsPage = async () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

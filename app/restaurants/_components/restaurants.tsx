@@ -32,11 +32,11 @@ const Restaurants = ({ userFavoriteRestaurants }: RestaurantProps) => {
   }
 
   return (
-    <>
+    <div className="lg:container">
       <Header />
-      <div className="px-5 py-6">
+      <div className="px-5 py-6 ">
         <h2 className="mb-6 text-lg font-semibold">Restaurantes Encontrados</h2>
-        <div className="flex w-full flex-col gap-6">
+        <div className="flex w-full flex-col gap-6 lg:grid lg:grid-cols-4 ">
           {restaurants.map((restaurant) => (
             <RestaurantItem
               key={restaurant.id}
@@ -47,7 +47,7 @@ const Restaurants = ({ userFavoriteRestaurants }: RestaurantProps) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

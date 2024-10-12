@@ -52,11 +52,13 @@ const Home = async () => {
   const { products, burguersCategory, pizzaCategory } = await fetch()
 
   return (
-    <>
+    <main className="lg:container">
       <Header />
 
-      <div className=" px-5 pt-6">
+      <div className=" px-5 pt-6 lg:hidden">
         <Search />
+      </div>
+      <div className=" px-5 pt-6 ">
         <Hero />
       </div>
 
@@ -64,7 +66,7 @@ const Home = async () => {
         <CategoryList />
       </div>
 
-      <div className="px-5 pt-6">
+      <div className="px-5 pt-6 lg:hidden">
         <Link href={`/categories/${pizzaCategory?.id}/products`}>
           <PromoBanner
             src="/promo-banner-01.png"
@@ -89,15 +91,37 @@ const Home = async () => {
         </div>
         <ProductList products={JSON.parse(JSON.stringify(products))} />
       </div>
-      <Link href={`/categories/${burguersCategory?.id}/products`}>
-        <div className="px-5 pt-6">
+
+      <div className="px-5 pt-6 lg:hidden">
+        <Link href={`/categories/${burguersCategory?.id}/products`}>
           <PromoBanner
             src="/promo-banner-02.png"
             alt="A partir de R$17,90 em lanches"
           />
+        </Link>
+      </div>
+
+      <div className="hidden lg:grid lg:grid-cols-2">
+        <div className="px-5 pt-6 ">
+          <Link href={`/categories/${pizzaCategory?.id}/products`}>
+            <PromoBanner
+              src="/promo-banner-01.png"
+              alt="Até 30% de desconto em pizzas!"
+            />
+          </Link>
         </div>
-      </Link>
-      <div className="space-y-4 py-6">
+
+        <div className="px-5 pt-6 ">
+          <Link href={`/categories/${burguersCategory?.id}/products`}>
+            <PromoBanner
+              src="/promo-banner-02.png"
+              alt="A partir de R$17,90 em lanches"
+            />
+          </Link>
+        </div>
+      </div>
+
+      <div className="space-y-4 py-6 ">
         <div className="flex items-center justify-between px-5">
           <h2 className="font-semibold">Restaurantes Recomendados</h2>
 
@@ -112,9 +136,10 @@ const Home = async () => {
             </Link>
           </Button>
         </div>
+
         <RestaurantList />
       </div>
-    </>
+    </main>
   )
 }
 

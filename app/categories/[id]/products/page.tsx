@@ -32,12 +32,12 @@ const CategoriesPage = async ({ params: { id } }: CategoriesPageProps) => {
   }
 
   return (
-    <>
+    <div className="lg:container">
       <Header />
       <div className="px-6 py-5">
         <h2 className="mb-6 text-lg font-semibold">{category.name}</h2>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
           {category.products.map((product) => (
             <ProductItem
               product={product}
@@ -47,7 +47,7 @@ const CategoriesPage = async ({ params: { id } }: CategoriesPageProps) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

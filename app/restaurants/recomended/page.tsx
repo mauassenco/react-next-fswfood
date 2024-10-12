@@ -18,7 +18,7 @@ const RecomendedRestaurants = async () => {
   const restaurants = await db.restaurant.findMany({})
 
   return (
-    <>
+    <div className="lg:container">
       <Header />
       <div className="px-6 py-5">
         <h2 className="mb-6 text-lg font-semibold">
@@ -36,7 +36,7 @@ const RecomendedRestaurants = async () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

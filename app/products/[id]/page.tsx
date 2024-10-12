@@ -38,7 +38,7 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
   })
 
   return (
-    <div>
+    <div className="lg:container">
       {/* IMAGEM */}
       <ProductImage product={JSON.parse(JSON.stringify(product))} />
 

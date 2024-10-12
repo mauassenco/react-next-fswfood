@@ -27,7 +27,7 @@ const MyOrdersPage = async () => {
   })
 
   return (
-    <>
+    <div className="lg:container">
       <Header />
 
       <div className="px-5 py-6">
@@ -39,7 +39,7 @@ const MyOrdersPage = async () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 export default MyOrdersPage
