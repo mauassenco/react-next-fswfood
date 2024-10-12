@@ -55,7 +55,7 @@ const Header = () => {
             variant="outline"
             className="border-none bg-transparent"
           >
-            <MenuIcon />
+            <MenuIcon color="#EA1D2B" />
           </Button>
         </SheetTrigger>
 
